@@ -6,12 +6,13 @@
   - **Alberto E. Gómez Juan** - **agomezjuan@hotmail.com**
   - **Daniela Calderón** - **danielcalderon088@gmail.com**
 
-
 ### Objetivo
+
 A continuación se plantea un desafío integrador que nos permitirá evaluar todos los temas
 que hemos visto en la cursada.
 
 ### Sistema de reserva de turnos
+
 Se desea implementar una API que permita administrar la reserva de turnos para una clínica
 odontológica. Esta debe cumplir con los siguientes requerimientos:
 
@@ -43,9 +44,10 @@ odontológica. Esta debe cumplir con los siguientes requerimientos:
 
 - **Seguridad mediante middleware:** se tiene que proveer cierta seguridad al momento de realizar POST, PUT, PATCH y DELETE. Esta seguridad mediante autenticación deberá estar implementada mediante un middleware.
 
-- **Documentación de la API:** se debe proveer de la pertinente documentación de la API mediante la implementación de *Swagger*.
+- **Documentación de la API:** se debe proveer de la pertinente documentación de la API mediante la implementación de _Swagger_.
 
 ### Requerimientos técnicos
+
 La aplicación debe ser desarrollada en diseño orientado a paquetes:
 
 - **Capa/dominio de entidades de negocio.**
@@ -58,3 +60,5 @@ Podrás utilizar cualquier base de datos relacional modelado a través de un mod
 - **Capa/dominio handler.**
 
 [Consigna del desafío]("/docs/CTD-EB3-C14Enunciado_del_desafioII.pdf")
+
+**Fecha de entrega:** 27/03/2024
