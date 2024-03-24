@@ -1,0 +1,9 @@
+[build]
+go_version = "1.21.6"
+
+[[scripts]]
+command = "cd cmd/server"
+
+# Ejecuta el comando 'go build' para compilar tu aplicación.
+[[scripts]]
+command = "go build -o out"
