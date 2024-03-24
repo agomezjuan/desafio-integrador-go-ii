@@ -1,0 +1,32 @@
+name: Deploy Backend
+on:
+  pull_request:
+    types: [closed]
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # Configuramos Go
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.21' 
+
+      # Instalamos las dependencias
+      - name: Install Dependencies
+        run: go mod tidy
+
+      # Pasos para el deploy en Railway
+      - name: Install Railway
+        run: bash <(curl -fsSL cli.new)
+
+      - name: Deploy
+        run: railway up
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
