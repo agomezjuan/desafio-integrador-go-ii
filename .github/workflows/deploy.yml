@@ -26,6 +26,11 @@ jobs:
       - name: Install Railway
         run: bash <(curl -fsSL cli.new)
 
+      - name: Build the Go app
+        run: |
+          cd cmd/server
+          go build -v -o api
+
       - name: Deploy to Railway
         run: railway up --service ${{ secrets.RAILWAY_SERVICE }}
         env:
