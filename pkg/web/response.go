@@ -31,3 +31,12 @@ func Failure(ctx *gin.Context, status int, err error) {
 		Message: err.Error(),
 	})
 }
+
+// Not Found escribe una respuesta fallida en caso de no encontrar Datos
+func NotFound(ctx *gin.Context) {
+	ctx.JSON(http.StatusNotFound, errorResponse{
+		Message: "Sin registros",
+		Status:  http.StatusNotFound,
+		Code:    http.StatusText(http.StatusNotFound),
+	})
+}
