@@ -1,0 +1,449 @@
+definitions:
+  domain.Dentista:
+    properties:
+      apellido:
+        type: string
+      id:
+        type: integer
+      matricula:
+        type: string
+      nombre:
+        type: string
+    required:
+    - apellido
+    - matricula
+    - nombre
+    type: object
+  domain.Paciente:
+    properties:
+      apellido:
+        type: string
+      dni:
+        type: string
+      domicilio:
+        type: string
+      fecha_alta:
+        type: string
+      id:
+        type: integer
+      nombre:
+        type: string
+    required:
+    - apellido
+    - dni
+    - domicilio
+    - fecha_alta
+    - nombre
+    type: object
+  domain.Turno:
+    properties:
+      dentista:
+        $ref: '#/definitions/domain.Dentista'
+      descripcion:
+        type: string
+      fecha:
+        type: string
+      hora:
+        type: string
+      id:
+        type: integer
+      paciente_id:
+        $ref: '#/definitions/domain.Paciente'
+    required:
+    - dentista
+    - fecha
+    - hora
+    - paciente_id
+    type: object
+  domain.TurnoAbstract:
+    properties:
+      dentista_id:
+        type: integer
+      descripcion:
+        type: string
+      fecha:
+        type: string
+      hora:
+        type: string
+      id:
+        type: integer
+      paciente_id:
+        type: integer
+    type: object
+  web.response:
+    properties:
+      data: {}
+    type: object
+info:
+  contact:
+    name: API Support
+    url: https://developers.ctd.com.ar/support
+  description: This API Handle Dentists, Patients and Appointments
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://developers.ctd.com.ar/es_ar/terminos-y-condiciones
+  title: Certified Tech Developer
+  version: "1.0"
+paths:
+  /dentistas:
+    get:
+      description: get dentista
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: List dentists
+      tags:
+      - Dentista
+    post:
+      consumes:
+      - application/json
+      description: create dentista
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Crear dentista
+      tags:
+      - Dentista
+  /dentistas/{id}:
+    delete:
+      description: delete dentista
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Eliminar dentista
+      tags:
+      - Dentista
+    patch:
+      consumes:
+      - application/json
+      description: update dentista
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Actualizar dentista por alguno de sus campos
+      tags:
+      - Dentista
+    put:
+      consumes:
+      - application/json
+      description: update dentista
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Actualizar dentista
+      tags:
+      - Dentista
+  /pacientes:
+    get:
+      description: get patients
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: List patients
+      tags:
+      - Paciente
+  /pacientes/{id}:
+    delete:
+      description: delete paciente
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Eliminar paciente
+      tags:
+      - Paciente
+    get:
+      description: get patient by id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: List patient by id
+      tags:
+      - Paciente
+    patch:
+      consumes:
+      - application/json
+      description: update paciente
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Actualizar paciente por alguno de sus campos
+      tags:
+      - Paciente
+    put:
+      consumes:
+      - application/json
+      description: update paciente
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Actualizar paciente
+      tags:
+      - Paciente
+  /turnos:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene todos los turnos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Turno'
+      summary: Obtiene todos los turnos
+      tags:
+      - Turnos
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo turno
+      parameters:
+      - description: Turno
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TurnoAbstract'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: int
+      summary: Agrega un nuevo turno
+      tags:
+      - Turnos
+  /turnos/{dni}/{matricula}:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo turno por DNI y Matricula
+      parameters:
+      - description: DNI
+        in: path
+        name: dni
+        required: true
+        type: string
+      - description: Matricula
+        in: path
+        name: matricula
+        required: true
+        type: string
+      - description: Turno
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TurnoAbstract'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: int
+      summary: Agrega un nuevo turno por DNI y Matricula
+      tags:
+      - Turnos
+  /turnos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Elimina un turno
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/web.response'
+      summary: Elimina un turno
+      tags:
+      - Turnos
+    get:
+      consumes:
+      - application/json
+      description: Obtiene un turno por ID
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Turno'
+      summary: Obtiene un turno por ID
+      tags:
+      - Turnos
+    patch:
+      consumes:
+      - application/json
+      description: Actualiza un turno
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Turno
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TurnoAbstract'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.TurnoAbstract'
+      summary: Actualiza un turno
+      tags:
+      - Turnos
+    put:
+      consumes:
+      - application/json
+      description: Actualiza un turno
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Turno
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TurnoAbstract'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.TurnoAbstract'
+      summary: Actualiza un turno
+      tags:
+      - Turnos
+  /turnos/query:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene un turno por DNI
+      parameters:
+      - description: DNI
+        in: path
+        name: dni
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Turno'
+      summary: Obtiene un turno por DNI
+      tags:
+      - Turnos
+swagger: "2.0"

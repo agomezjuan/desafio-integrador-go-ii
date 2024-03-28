@@ -36,7 +36,6 @@ type PacienteStore interface {
 	Exists(dni string) bool
 }
 
-
 type StoreTurno interface {
 	Add(turno *domain.TurnoAbstract) (int, error)
 	Update(turno *domain.TurnoAbstract) error
