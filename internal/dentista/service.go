@@ -7,6 +7,8 @@ import (
 type Service interface {
 	// GetByID busca un dentista por su id
 	GetByID(id int) (domain.Dentista, error)
+	// GetByMatricula busca un dentista por su matricula
+	GetByMatricula(matricula string) (domain.Dentista, error)
 	// Create agrega un nuevo dentista
 	Create(d domain.Dentista) (domain.Dentista, error)
 	// Update actualiza un dentista
@@ -27,6 +29,16 @@ func NewService(r Repository) Service {
 // GetByID busca un dentista por su id
 func (s *service) GetByID(id int) (domain.Dentista, error) {
 	dentista, err := s.r.GetByID(id)
+	if err != nil {
+		return domain.Dentista{}, err
+	}
+
+	return dentista, nil
+}
+
+// GetByMatricula busca un dentista por su matricula
+func (s *service) GetByMatricula(matricula string) (domain.Dentista, error) {
+	dentista, err := s.r.GetByMatricula(matricula)
 	if err != nil {
 		return domain.Dentista{}, err
 	}

@@ -8,28 +8,40 @@ import (
 )
 
 type Repository interface {
-	// GetByID busca un producto por su id
+	// GetByID busca un dentista por su id
 	GetByID(id int) (domain.Dentista, error)
-	// Create agrega un nuevo producto
+	// GetByMatricula busca un dentista por su matricula
+	GetByMatricula(matricula string) (domain.Dentista, error)
+	// Create agrega un nuevo dentista
 	Create(p domain.Dentista) (domain.Dentista, error)
-	// Update actualiza un producto
+	// Update actualiza un dentista
 	Update(id int, p domain.Dentista) (domain.Dentista, error)
-	// Delete elimina un producto
+	// Delete elimina un dentista
 	Delete(id int) error
 }
 
 type repository struct {
-	storage store.DentistaStoreInterface
+	storage store.DentistaStore
 }
 
 // NewRepository crea un nuevo repositorio
-func NewRepository(storage store.DentistaStoreInterface) Repository {
+func NewRepository(storage store.DentistaStore) Repository {
 	return &repository{storage}
 }
 
 // GetByID busca un dentista por su id
 func (r *repository) GetByID(id int) (domain.Dentista, error) {
 	dentista, err := r.storage.Read(id)
+	if err != nil {
+		return domain.Dentista{}, errors.New("no se encontró al dentista")
+	}
+
+	return dentista, nil
+}
+
+// GetByMatricula busca un dentista por su matricula
+func (r *repository) GetByMatricula(matricula string) (domain.Dentista, error) {
+	dentista, err := r.storage.ReadByMatricula(matricula)
 	if err != nil {
 		return domain.Dentista{}, errors.New("no se encontró al dentista")
 	}
